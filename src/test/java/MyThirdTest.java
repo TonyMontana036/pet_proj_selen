@@ -9,10 +9,9 @@ public class MyThirdTest extends TestBase {
         System.out.println();
         System.out.println(((HasCapabilities) driver).getCapabilities());
         System.out.println();
-        driver.get("http://localhost/litecart/admin");
-        driver.findElement(By.name("username")).sendKeys("admin");
-        driver.findElement(By.name("password")).sendKeys("admin");
-        driver.findElement(By.name("login")).click();
+
+        openAndLoginByAdmin();
+
         System.out.println("Тест 3, поток: " + Thread.currentThread().getName());
     }
 
