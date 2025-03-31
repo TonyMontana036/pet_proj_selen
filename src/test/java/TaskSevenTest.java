@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TaskSevenTest extends TestBase {
     @Test
@@ -13,13 +14,16 @@ public class TaskSevenTest extends TestBase {
 
         driver.get(url);
 
+        assertTrue(areElementPresents(By.cssSelector("div.middle div.content li.product")), "Картинок нет на странице");
+
         for (String query : imageBlocksQuery) {
-            int boxImagesSize = driver.findElements(By.cssSelector(query + " a.link")).size();
+            if (areElementPresents(By.cssSelector(query + " a.link"))) {
+                int boxImagesSize = driver.findElements(By.cssSelector(query + " a.link")).size();
 
-            for (int i = 1; i < boxImagesSize + 1; i++) {
-                assertEquals(1, driver.findElements(By.cssSelector(query + " li:nth-child(" + i + ") div.sticker")).size(), "У картинки не один стикер");
-            }
-
+                for (int i = 1; i < boxImagesSize + 1; i++) {
+                    assertEquals(1, driver.findElements(By.cssSelector(query + " li:nth-child(" + i + ") div.sticker")).size(), "У картинки не один стикер");
+                }
+            } 
         }
     }
 }

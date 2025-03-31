@@ -3,9 +3,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class TestBase {
@@ -14,11 +18,19 @@ public class TestBase {
     protected String urlAdmin = url + "/admin";
     protected WebDriver driver;
 
+    protected void openAndLoginByAdmin() {
+        openAndLoginByAdmin(this.urlAdmin); // используем поле класса как значение по умолчанию
+    }
+
+
     @BeforeEach
     public void start() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
-        driver = new ChromeDriver(options);
+        driver = new ChromeDriver();
+        //driver= new FirefoxDriver();
+        //driver = new InternetExplorerDriver();
+
         driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         threadLocal.set(driver);  // Сохраняем драйвер для текущего потока
     }
@@ -33,14 +45,14 @@ public class TestBase {
         threadLocal.remove();  // Очищаем ThreadLocal
     }
 
-    void openAndLoginByAdmin() {
-        driver.get(urlAdmin);
+    protected void openAndLoginByAdmin(String url) {
+        driver.get(url);
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
     }
 
-    public boolean isElementPresent(By locator) {
+    protected boolean isElementPresent(By locator) {
         try {
             driver.findElement(locator);
             return true;
@@ -49,7 +61,12 @@ public class TestBase {
         }
     }
 
-    public boolean areElementPresents(By locator) {
+    protected boolean areElementPresents(By locator) {
         return !driver.findElements(locator).isEmpty();
+    }
+
+    protected static void deleteFirstAndLastWebElements(List<WebElement> arrayWebElements) {
+        arrayWebElements.remove(arrayWebElements.size() - 1);
+        arrayWebElements.remove(arrayWebElements.get(0));
     }
 }
