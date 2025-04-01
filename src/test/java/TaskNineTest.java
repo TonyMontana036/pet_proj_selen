@@ -30,11 +30,10 @@ public class TaskNineTest extends TestBase {
 
             ArrayList<String> unsortedArrayOfZones = new ArrayList<>();
 
-            List<WebElement> linesWithZones = driver.findElements(By.cssSelector("#table-zones tbody tr"));
-            deleteFirstAndLastWebElements(linesWithZones);
+            List<WebElement> zones = driver.findElements(By.cssSelector("select[name^='zones'][name$='[zone_code]'] option[selected]"));
 
-            for (WebElement wEl : linesWithZones) {
-                unsortedArrayOfZones.add(wEl.findElements(By.tagName("td")).get(2).getText());
+            for (WebElement wEl : zones) {
+                unsortedArrayOfZones.add(wEl.getText());
             }
 
             ArrayList<String> sortedArrayOfZones = new ArrayList<>(unsortedArrayOfZones);

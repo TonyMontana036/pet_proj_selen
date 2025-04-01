@@ -24,10 +24,10 @@ public class TestBase {
 
 
     @BeforeEach
-    public void start() {
+    public void initDriver() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
         //driver= new FirefoxDriver();
         //driver = new InternetExplorerDriver();
 
