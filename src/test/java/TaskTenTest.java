@@ -56,9 +56,6 @@ public class TaskTenTest extends TestBase {
 
     @Test
     public void successCompareColorAndStyleOfPrices() {
-        String expectedGreyNormalColorOnCampaign = "119, 119, 119";
-        String expectedGreyNormalColorOnCard = "102, 102, 102";
-        String expectedDiscountRedColor = "204, 0, 0";
         String typeOfTextDecoration = "text-decoration-line";
         String expectedTextStyle = "line-through";
 
