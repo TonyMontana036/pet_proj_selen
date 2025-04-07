@@ -6,9 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +17,9 @@ public class TestBase {
     protected String url = "http://localhost/litecart";
     protected String urlAdmin = url + "/admin";
     protected WebDriver driver;
+    protected Duration waitSeconds = Duration.ofSeconds(3);
+    protected WebDriverWait wait;
+
 
     protected void openAndLoginByAdmin() {
         openAndLoginByAdmin(this.urlAdmin); // используем поле класса как значение по умолчанию
@@ -28,6 +31,7 @@ public class TestBase {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
         driver = new ChromeDriver(options);
+        wait = new WebDriverWait(driver, waitSeconds);
         //driver= new FirefoxDriver();
         //driver = new InternetExplorerDriver();
 

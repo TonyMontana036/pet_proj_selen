@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -51,7 +52,8 @@ public class TaskTwelveTest extends TestBase {
                 .moveToElement(driver.findElement(By.cssSelector("#content button[name=save]"))).click()
                 .perform();
 
-        Thread.sleep(1000);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#content [href*='?category_id=0&app=catalog&doc=edit_product']")));
+
         driver.findElement(By.cssSelector("#app- a[href*='?app=catalog&doc=catalog']")).click();
 
         isElementPresent(By.xpath("//a[text()='" + unicName + "']"));
