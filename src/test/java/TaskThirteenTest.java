@@ -9,10 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TaskThirteenTest extends TestBase {
 
     @Test
-    public void successAddAndDeleteProductsInCart(){
+    public void successAddAndDeleteProductsInCart() {
         int productCounter = 3;
         int exitCounter = 0;
-        boolean isCartNotEmty;
+        int cartSize;
+        boolean isCartNotEmty = true;
 
         String cssSelectorForRemoveButton = "#box-checkout-cart button[name='remove_cart_item']";
 
@@ -39,19 +40,20 @@ public class TaskThirteenTest extends TestBase {
 
         do {
             driver.navigate().refresh();
+            cartSize = driver.findElements(By.cssSelector("#box-checkout-cart .items .item")).size();
             WebElement elementRemoveButton = driver.findElement(By.cssSelector(cssSelectorForRemoveButton));
             elementRemoveButton.click();
 
-            // Ожидаем либо исчезновение элемента корзины, либо истечение таймаута
-            try {
-                wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("#box-checkout-cart > div")));
-                isCartNotEmty = false;
-            } catch (TimeoutException e) {
-                isCartNotEmty = true;
+            if (cartSize < 2) {
+                try {
+                    wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("#box-checkout-cart > div")));
+                    isCartNotEmty = false;
+                } catch (TimeoutException ignored) {
+                }
             }
 
             exitCounter++;
-            if (exitCounter > productCounter){
+            if (exitCounter > productCounter) {
                 isCartNotEmty = false;
             }
 
