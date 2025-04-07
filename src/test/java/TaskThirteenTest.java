@@ -8,8 +8,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TaskThirteenTest extends TestBase {
 
     @Test
-    public void successAddAndDeleteProductsInCart() throws InterruptedException {
+    public void successAddAndDeleteProductsInCart(){
         int productCounter = 3;
+        int exitCounter = 0;
+        boolean isCartNotEmty;
+
         String cssSelectorForRemoveButton = "#box-checkout-cart button[name='remove_cart_item']";
 
         driver.get(url);
@@ -26,7 +29,6 @@ public class TaskThirteenTest extends TestBase {
 
             driver.findElement(By.cssSelector("#box-product button")).click();
 
-            //       wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#content [href*='?category_id=0&app=catalog&doc=edit_product']")));
             wait.until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.cssSelector("#cart > a.content > span.quantity")), Integer.toString(i)));
 
             driver.navigate().back();
@@ -38,7 +40,12 @@ public class TaskThirteenTest extends TestBase {
             driver.navigate().refresh();
             WebElement elementRemoveButton = driver.findElement(By.cssSelector(cssSelectorForRemoveButton));
             elementRemoveButton.click();
-        } while (!isElementPresent(By.cssSelector("#checkout-cart-wrapper em")));
+            isCartNotEmty = !isElementPresent(By.cssSelector("#checkout-cart-wrapper em"));
+            exitCounter++;
+            if (exitCounter > productCounter){
+                isCartNotEmty = false;
+            }
+        } while (isCartNotEmty);
 
         assertTrue(isElementPresent(By.cssSelector("#checkout-cart-wrapper em")), "На странцие нет надписи об отсутствии товара");
     }
