@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -40,11 +41,20 @@ public class TaskThirteenTest extends TestBase {
             driver.navigate().refresh();
             WebElement elementRemoveButton = driver.findElement(By.cssSelector(cssSelectorForRemoveButton));
             elementRemoveButton.click();
-            isCartNotEmty = !isElementPresent(By.cssSelector("#checkout-cart-wrapper em"));
+
+            // Ожидаем либо исчезновение элемента корзины, либо истечение таймаута
+            try {
+                wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("#box-checkout-cart > div")));
+                isCartNotEmty = false;
+            } catch (TimeoutException e) {
+                isCartNotEmty = true;
+            }
+
             exitCounter++;
             if (exitCounter > productCounter){
                 isCartNotEmty = false;
             }
+
         } while (isCartNotEmty);
 
         assertTrue(isElementPresent(By.cssSelector("#checkout-cart-wrapper em")), "На странцие нет надписи об отсутствии товара");
