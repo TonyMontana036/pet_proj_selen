@@ -65,6 +65,25 @@ public class TestBase {
         }
     }
 
+    protected boolean isElementPresent(WebDriver driver, By locator) {
+        try {
+            driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+            return !driver.findElements(locator).isEmpty();
+        }
+        finally {
+            driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        }
+    }
+
+    protected boolean isElementNotPresent(WebDriver driver, By locator) {
+        try {
+            driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+            return driver.findElements(locator).isEmpty();
+        } finally {
+            driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        }
+    }
+
     protected boolean areElementPresents(By locator) {
         return !driver.findElements(locator).isEmpty();
     }
