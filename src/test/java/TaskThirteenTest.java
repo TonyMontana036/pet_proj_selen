@@ -4,6 +4,8 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TaskThirteenTest extends TestBase {
@@ -11,8 +13,8 @@ public class TaskThirteenTest extends TestBase {
     @Test
     public void successAddAndDeleteProductsInCart() {
         int productCounter = 3;
-        int exitCounter = 0;
-        int cartSize;
+        int linesInCartTable = 0;
+        int itemsIncart;
         boolean isCartNotEmty = true;
 
         String cssSelectorForRemoveButton = "#box-checkout-cart button[name='remove_cart_item']";
@@ -38,26 +40,27 @@ public class TaskThirteenTest extends TestBase {
 
         driver.findElement(By.cssSelector("a[href*='/checkout'].link")).click();
 
-        do {
-            driver.navigate().refresh();
-            cartSize = driver.findElements(By.cssSelector("#box-checkout-cart .items .item")).size();
-            WebElement elementRemoveButton = driver.findElement(By.cssSelector(cssSelectorForRemoveButton));
+        itemsIncart = driver.findElements(By.cssSelector("#order_confirmation-wrapper tr .item")).size() - 1;
+
+        while (itemsIncart > 0) {
+            List<WebElement> cartArray = driver.findElements(By.cssSelector("#box-checkout-cart > ul li"));
+            if (cartArray.size() > 1) {
+                driver.findElement(By.cssSelector("#box-checkout-cart > ul li")).click();
+            }
+
+            WebElement elementRemoveButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSelectorForRemoveButton)));
             elementRemoveButton.click();
 
-            if (cartSize < 2) {
-                try {
-                    wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("#box-checkout-cart > div")));
-                    isCartNotEmty = false;
-                } catch (TimeoutException ignored) {
-                }
+            linesInCartTable = driver.findElements(By.cssSelector("#order_confirmation-wrapper tr .item")).size();
+
+            if (linesInCartTable == 2) {
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#checkout-cart-wrapper em")));
+            } else {
+                wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("#order_confirmation-wrapper tr .item"), linesInCartTable - 1));
             }
 
-            exitCounter++;
-            if (exitCounter > productCounter) {
-                isCartNotEmty = false;
-            }
-
-        } while (isCartNotEmty);
+            itemsIncart--;
+        }
 
         assertTrue(isElementPresent(By.cssSelector("#checkout-cart-wrapper em")), "На странцие нет надписи об отсутствии товара");
     }

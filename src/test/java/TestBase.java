@@ -17,7 +17,7 @@ public class TestBase {
     protected String url = "http://localhost/litecart";
     protected String urlAdmin = url + "/admin";
     protected WebDriver driver;
-    protected Duration waitSeconds = Duration.ofSeconds(3);
+    protected Duration waitSeconds = Duration.ofSeconds(10);
     protected WebDriverWait wait;
 
 
