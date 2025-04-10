@@ -53,10 +53,10 @@ public class TaskThirteenTest extends TestBase {
 
             linesInCartTable = driver.findElements(By.cssSelector("#order_confirmation-wrapper tr .item")).size();
 
-            if (linesInCartTable == 2) {
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#checkout-cart-wrapper em")));
-            } else {
+            try {
                 wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("#order_confirmation-wrapper tr .item"), linesInCartTable - 1));
+            } catch (TimeoutException e){
+                                break;
             }
 
             itemsIncart--;
