@@ -1,9 +1,8 @@
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.HasCapabilities;
 
-public class MyThirdTest extends TestBase {
+public class MyThirdTest extends TestBaseObsolete {
     @Disabled
     @Test
     public void thirdTest() {

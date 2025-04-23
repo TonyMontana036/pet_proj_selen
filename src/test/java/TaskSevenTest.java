@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TaskSevenTest extends TestBase {
+public class TaskSevenTest extends TestBaseObsolete {
     @Test
     public void successCheckOnlyOneStickerPerImage() {
         String mostPopularImageQuery = "#box-most-popular";

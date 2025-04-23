@@ -6,7 +6,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TaskSixTest extends TestBase {
+public class TaskSixTest extends TestBaseObsolete {
 
     @Test
     public void successClickAndCheckTitlePresentsLeftBoxLines() {

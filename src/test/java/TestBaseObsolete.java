@@ -12,7 +12,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class TestBase {
+public class TestBaseObsolete {
     public static ThreadLocal<WebDriver> threadLocal = new ThreadLocal<>();
     protected String url = "http://localhost/litecart";
     protected String urlAdmin = url + "/admin";

@@ -8,7 +8,7 @@ import java.util.List;
 import static java.util.Collections.sort;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TaskEightTest extends TestBase {
+public class TaskEightTest extends TestBaseObsolete {
 
     @Test
     public void successAlphabeticOrderCountries() {

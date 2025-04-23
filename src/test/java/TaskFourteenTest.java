@@ -9,7 +9,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TaskFourteenTest extends TestBase {
+public class TaskFourteenTest extends TestBaseObsolete {
 
     @Test
     public void successOpenNewWindowsAndCloseOnCountries() {

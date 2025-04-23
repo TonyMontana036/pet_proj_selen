@@ -9,7 +9,7 @@ import static java.util.Collections.sort;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class TaskNineTest extends TestBase {
+public class TaskNineTest extends TestBaseObsolete {
     @Test
     public void successAlphabeticOrderGeoZones() {
         ArrayList<String> countriesWithZones = new ArrayList<>();

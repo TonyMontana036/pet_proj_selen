@@ -2,12 +2,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.support.Color;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TaskTenTest extends TestBase {
+public class TaskTenTest extends TestBaseObsolete {
     String cSSQueryForFirstCardFromCampaign = "#box-campaigns a.link ";
     String cSSRegularPrice = "s.regular-price";
     String cSSCampaignPrice = "strong.campaign-price";

@@ -6,9 +6,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TaskSeventeenTest extends TestBase {
+public class TaskSeventeenTest extends TestBaseObsolete {
     @Test
     public void successCheckEmptyBrowserConsoleLog() {
+
+
         openAndLoginByAdmin("http://localhost/litecart/admin/?app=catalog&doc=catalog&category_id=1");
 
         By productRowsSelector = By.cssSelector("#content tr a[href*='category_id=1&product_id=']:not([title])");
